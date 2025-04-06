@@ -1,7 +1,7 @@
 {
     "expo": {
-        "name": "native-familyApp",
-        "slug": "native-familyApp",
+        "name": "familyApp",
+        "slug": "familyApp",
         "version": "1.0.0",
         "orientation": "portrait",
         "icon": "./assets/images/favicon.png",

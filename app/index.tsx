@@ -1,15 +1,35 @@
-import { Text, View } from "react-native";
+import { useState } from 'react';
+import { StyleSheet, Text, View } from 'react-native';
+import { FirebaseAuthTypes, getAuth, onAuthStateChanged } from '@react-native-firebase/auth';
+import { useRouter } from 'expo-router';
 
 export default function Index() {
-  return (
-    <View
-      style={{
-        flex: 1,
-        justifyContent: "center",
-        alignItems: "center",
-      }}
-    >
-      <Text>Edit app/index.tsx to edit this screen.</Text>
-    </View>
-  );
+    const auth = getAuth();
+    const router = useRouter();
+    const [user, setUser] = useState<FirebaseAuthTypes.User | null>(null);
+
+    onAuthStateChanged(auth, (user: FirebaseAuthTypes.User) => {
+        if (user) {
+            setUser(user);
+            router.navigate('/(tabs)/dashboard');
+        } else {
+            setUser(null);
+            router.navigate('/login');
+        }
+    });
+
+    return (
+        <View style={styles.pageWrapper}>
+            <Text>Login...</Text>
+        </View>
+    );
 }
+
+const styles = StyleSheet.create({
+    pageWrapper: {
+        padding: 16,
+        flex: 1,
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
+});
