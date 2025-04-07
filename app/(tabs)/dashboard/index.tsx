@@ -1,4 +1,4 @@
-import { Alert, Button, StyleSheet, Text, View } from 'react-native';
+import { Alert, Button, ScrollView, StyleSheet, Text, View } from 'react-native';
 import { getAuth, signOut } from '@react-native-firebase/auth';
 
 export default function dashboard() {
@@ -16,10 +16,11 @@ export default function dashboard() {
     }
 
     return (
-        <View>
-            <Text>dashboard</Text>
-            <Button onPress={handleLogout} title="Abmelden" />
-        </View>
+        <ScrollView contentInsetAdjustmentBehavior="automatic">
+            <View>
+                <Button onPress={handleLogout} title="Abmelden" />
+            </View>
+        </ScrollView>
     );
 }
 

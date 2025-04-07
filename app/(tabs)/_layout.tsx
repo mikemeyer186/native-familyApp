@@ -1,35 +1,46 @@
-import { StyleSheet, Text, View } from 'react-native';
-import { Tabs } from 'expo-router';
+import { StyleSheet } from 'react-native';
+import { Tabs } from '@/components/tabs';
+import { Colors } from '@/constants/colors';
 
 export default function TabLayout() {
     return (
-        <Tabs>
+        <Tabs
+            ignoresTopSafeArea
+            hapticFeedbackEnabled
+            screenOptions={{
+                tabBarActiveTintColor: Colors.light.tintPrimary,
+            }}
+        >
             <Tabs.Screen
                 name="dashboard"
                 options={{
+                    title: 'Dashboard',
                     tabBarLabel: 'Dashboard',
-                    headerTitle: 'Dashboard',
+                    tabBarIcon: ({ focused }) => ({ sfSymbol: focused ? 'chart.bar.fill' : 'chart.bar' }),
                 }}
             ></Tabs.Screen>
             <Tabs.Screen
                 name="finance"
                 options={{
+                    title: 'Finanzen',
                     tabBarLabel: 'Finanzen',
-                    headerTitle: 'Finanzen',
+                    tabBarIcon: ({ focused }) => ({ sfSymbol: focused ? 'eurosign.square.fill' : 'eurosign.square' }),
                 }}
             ></Tabs.Screen>
             <Tabs.Screen
                 name="calendar"
                 options={{
-                    tabBarLabel: 'Kalendar',
-                    headerTitle: 'Kalendar',
+                    title: 'Kalender',
+                    tabBarLabel: 'Kalender',
+                    tabBarIcon: ({ focused }) => ({ sfSymbol: focused ? 'calendar.circle.fill' : 'calendar.circle' }),
                 }}
             ></Tabs.Screen>
             <Tabs.Screen
                 name="lists"
                 options={{
+                    title: 'Listen',
                     tabBarLabel: 'Listen',
-                    headerTitle: 'Listen',
+                    tabBarIcon: ({ focused }) => ({ sfSymbol: focused ? 'list.clipboard.fill' : 'list.clipboard' }),
                 }}
             ></Tabs.Screen>
         </Tabs>

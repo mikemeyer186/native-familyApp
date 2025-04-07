@@ -1,9 +1,9 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { FirebaseAuthTypes, getAuth, onAuthStateChanged } from '@react-native-firebase/auth';
 import { useRouter } from 'expo-router';
 
-export default function Index() {
+export default function index() {
     const auth = getAuth();
     const router = useRouter();
     const [user, setUser] = useState<FirebaseAuthTypes.User | null>(null);
