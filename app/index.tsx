@@ -11,10 +11,10 @@ export default function Index() {
     onAuthStateChanged(auth, (user: FirebaseAuthTypes.User) => {
         if (user) {
             setUser(user);
-            router.navigate('/(tabs)/dashboard');
+            router.replace('/(tabs)/dashboard');
         } else {
             setUser(null);
-            router.navigate('/login');
+            router.replace('/login');
         }
     });
 
