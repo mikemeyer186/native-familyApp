@@ -1,10 +1,17 @@
 import React from 'react';
-import { Button, StyleSheet } from 'react-native';
+import { Image, StyleSheet } from 'react-native';
 import { Stack } from 'expo-router';
 import { Colors } from '@/constants/colors';
-import Ionicons from '@expo/vector-icons/Ionicons';
+import { useAuth } from '@/contexts/authContext';
 
-const Layout = () => {
+export default function Layout() {
+    const HeaderMenu = () => {
+        const { activeUser } = useAuth();
+        const userImage = activeUser?.photoURL;
+        const defaultUserImage = require('@/assets/images/default_user.png');
+        return <Image source={userImage ? { uri: userImage } : defaultUserImage} style={styles.headerMenuImage} />;
+    };
+
     return (
         <Stack
             screenOptions={{
@@ -18,13 +25,17 @@ const Layout = () => {
                 name="index"
                 options={{
                     title: 'Dashboard',
-                    headerRight: () => <Ionicons name="settings-outline" size={24}></Ionicons>,
+                    headerRight: () => <HeaderMenu />,
                 }}
             />
         </Stack>
     );
-};
+}
 
-export default Layout;
-
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+    headerMenuImage: {
+        width: 35,
+        height: 35,
+        borderRadius: '50%',
+    },
+});

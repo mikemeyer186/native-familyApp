@@ -1,29 +1,22 @@
 import React, { useState } from 'react';
+import { useAuth } from '@/contexts/authContext';
 import { Colors } from '@/constants/colors';
-import { getAuth, signInWithEmailAndPassword } from '@react-native-firebase/auth';
-import { useRouter } from 'expo-router';
 import { Alert, StyleSheet, Text, TextInput, View, Image, TouchableOpacity } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import * as Webbrowser from 'expo-web-browser';
 
 export default function Login() {
-    const auth = getAuth();
-    const router = useRouter();
+    const { signInUser } = useAuth();
     const { top } = useSafeAreaInsets();
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
     const handleLogin = async () => {
         if (email && password) {
-            try {
-                await signInWithEmailAndPassword(auth, email, password);
-                setEmail('');
-                setPassword('');
-            } catch (error) {
-                console.error('Fehler beim Login:', error);
-                Alert.alert('Login-Daten nicht korrekt!');
-            }
+            await signInUser(email, password);
+            setEmail('');
+            setPassword('');
         } else {
             Alert.alert('Bitte Login-Daten eingeben!');
         }
@@ -47,6 +40,9 @@ export default function Login() {
                     onChangeText={setEmail}
                     placeholder="example@mail.com"
                     keyboardType="email-address"
+                    autoCapitalize="none"
+                    autoComplete="email"
+                    autoCorrect={false}
                 ></TextInput>
                 <Text style={styles.label}>Password</Text>
                 <TextInput
@@ -54,6 +50,7 @@ export default function Login() {
                     value={password}
                     onChangeText={setPassword}
                     placeholder="******"
+                    secureTextEntry
                     keyboardType="visible-password"
                 ></TextInput>
                 <TouchableOpacity onPress={handleLogin} style={styles.button}>
